@@ -1,10 +1,12 @@
 trigger ReservationTrigger on Reservation__c (before insert, after insert, before update, after update) {
 
-  for(Reservation__c r : Trigger.new){
-          System.debug(Trigger.operationType
-    + ' | stamp1 = ' + r.Flow_Stamp__c
-    + ' | stamp2 = ' + r.Flow_Stamp_2__c);
+
+  if (Trigger.isBefore && Trigger.isInsert) {
+            ReservationHandler.validateDates(Trigger.new);
+
   }
+
+
 
 
 
@@ -84,4 +86,5 @@ Loop again for assigning the value
             
     }
 }
+
 }
